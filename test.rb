@@ -1,6 +1,7 @@
 $LOAD_PATH << '.'
 require 'queue'
 require 'stack'
+require 'bimap'
 require 'multiset'
 require 'linkedlist'
 require 'binary_search_tree'
@@ -148,8 +149,38 @@ end
 
 
 
+def bimap_test()
+    passed = true
+    bimap = Bimap.new
+
+    ('a'..'z').each do |c|
+        bimap.add(c, c.bytes)
+    end
+
+    ('a'..'z').each do |c|
+        if !bimap.contains(c) or !bimap.contains(c.bytes)
+            passed = false
+        end
+        if bimap.get(c) != c.bytes or bimap.get(c.bytes) != c
+            passed = false
+        end
+    end
+
+    if bimap.contains('1')
+        passed = false
+    end
+
+    if passed
+        puts "P A S S"
+    else
+        puts "F A I L"
+    end
+end
+
+
+
 def binary_search_tree_test()
-    
+
 end
 
 
@@ -170,6 +201,9 @@ if __FILE__ == $0
 
     puts "\nMULTISET TEST:\n"
     multiset_test()
+
+    puts "\nBIMAP TEST:\n"
+    bimap_test()
 
     puts "\nBINARY SEARCH TREE TEST:\n"
 end
