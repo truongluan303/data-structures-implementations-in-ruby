@@ -6,7 +6,6 @@ class Multiset
     end
 
 
-
     def add(value, occurrences = 1)
         if occurrences < 1
             raise ArgumentError.new "occurrences must be positive"
@@ -17,7 +16,6 @@ class Multiset
         @bag[value] += occurrences
         @size += occurrences
     end
-
 
 
     def remove(value, occurrences = 1)
@@ -36,11 +34,9 @@ class Multiset
     end
 
 
-
     def contains(value)
         @bag.key?(value)
     end
-
 
 
     def get_occurrences(value)
@@ -49,7 +45,6 @@ class Multiset
         end
         @bag[value]
     end
-
 
 
     def size

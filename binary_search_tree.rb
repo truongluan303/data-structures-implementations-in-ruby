@@ -4,19 +4,16 @@ require 'queue'
 
 class BinarySearchTree
 
-    def initialize()
+    def initialize
         @root = nil
         @size = 0
     end
 
 
-
     def add(value)
         new_node = Node.new(value)
-        
         if !@root
             @root = new_node
-        
         else
             current = @root
 
@@ -36,10 +33,8 @@ class BinarySearchTree
                 end
             end
         end
-
         @size += 1
     end
-
 
 
     def contains(value)
@@ -57,11 +52,9 @@ class BinarySearchTree
     end
 
 
-
     def remove(value)
 
     end
-
 
 
     def level_order_traversal
@@ -72,7 +65,6 @@ class BinarySearchTree
         until q.is_empty
             size = q.size
             level = []
-
             (0..(size - 1)).each { |i|
                 current = q.dequeue
                 if current
@@ -83,7 +75,6 @@ class BinarySearchTree
                     level.push(nil)
                 end
             }
-
             all_null = true
             level.each do |val|
                 if val
@@ -98,13 +89,11 @@ class BinarySearchTree
     end
 
 
-
     def preorder_traversal
         result = []
         preorder_helper(@root, result)
         result
     end
-
 
     
     def inorder_traversal
@@ -114,13 +103,11 @@ class BinarySearchTree
     end
 
 
-
     def postorder_traversal
         result = []
         postorder_helper(@root, result)
         result
     end
-
 
 
     # private fields

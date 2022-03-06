@@ -7,7 +7,6 @@ require 'linkedlist'
 require 'binary_search_tree'
 
 
-
 def linked_list_test
     passed = true
     llist = LinkedList.new
@@ -54,8 +53,6 @@ def linked_list_test
 end
 
 
-
-
 def queue_test
     passed = true
     q = Queue.new
@@ -83,7 +80,6 @@ def queue_test
         puts "F A I L"
     end
 end
-
 
 
 def stack_test
@@ -115,7 +111,6 @@ def stack_test
 end
 
 
-
 def multiset_test
     passed = true
     multiset = Multiset.new
@@ -142,7 +137,6 @@ def multiset_test
         puts "F A I L"
     end
 end
-
 
 
 def bimap_test
@@ -174,11 +168,9 @@ def bimap_test
 end
 
 
-
 def binary_search_tree_test
 
 end
-
 
 
 if __FILE__ == $0

@@ -7,7 +7,6 @@ class Bimap
     end
 
 
-    
     def add(value1, value2)
         @firstmap[value1] = value2
         @secondmap[value2] = value1
@@ -15,11 +14,9 @@ class Bimap
     end
 
 
-
     def contains(value)
         @firstmap.key?(value) or @secondmap.key?(value)
     end
-
 
 
     def remove(value)
@@ -34,13 +31,11 @@ class Bimap
     end
 
 
-
     def get(key)
         return @firstmap[key] if @firstmap.key?(key)
         return @secondmap[key] if @secondmap.key?(key)
         nil
     end
-
 
 
     def size

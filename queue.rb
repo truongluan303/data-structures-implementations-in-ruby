@@ -7,22 +7,17 @@ class Queue
     end
 
 
-
     def enqueue(value)
         new_node = Node.new(value)
-
         if @size == 0
             @head = new_node
-            @tail = new_node 
-        
+            @tail = new_node
         else
             @tail.link = new_node
             @tail = new_node
         end
-
         @size += 1
     end
-
 
 
     def dequeue
@@ -36,14 +31,12 @@ class Queue
     end
 
 
-
     def peek
         if is_empty
             raise StandardError.new "Attempted to peek an empty queue"
         end
         @head.value
     end
-
 
 
     def contains(value)
@@ -58,17 +51,14 @@ class Queue
     end
 
 
-
     def is_empty
         @size == 0
     end
 
 
-
     def size
         @size
     end
-
 
 
     private
