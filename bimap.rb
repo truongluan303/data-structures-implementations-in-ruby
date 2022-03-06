@@ -1,6 +1,6 @@
 class Bimap
 
-    def initialize()
+    def initialize
         @size = 0
         @firstmap = Hash.new
         @secondmap = Hash.new
@@ -17,7 +17,7 @@ class Bimap
 
 
     def contains(value)
-        return (@firstmap.key?(value) or @secondmap.key?(value))
+        @firstmap.key?(value) or @secondmap.key?(value)
     end
 
 
@@ -36,13 +36,9 @@ class Bimap
 
 
     def get(key)
-        if @firstmap.key?(key)
-            return @firstmap[key]
-        elsif @secondmap.key?(key)
-            return @secondmap[key]
-        else
-            raise ArgumentError.new "Key not existed"
-        end
+        return @firstmap[key] if @firstmap.key?(key)
+        return @secondmap[key] if @secondmap.key?(key)
+        nil
     end
 
 

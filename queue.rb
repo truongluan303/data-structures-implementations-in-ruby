@@ -1,6 +1,6 @@
 class Queue
 
-    def initialize()
+    def initialize
         @size = 0
         @head = nil
         @tail = nil
@@ -25,44 +25,42 @@ class Queue
 
 
 
-    def dequeue()
-        if is_empty()
+    def dequeue
+        if is_empty
             raise StandardError.new "Attempted to dequeue an empty queue"
         end
         result = @head.value
         @head = @head.link
         @size -= 1
-        return result
+        result
     end
 
 
 
-    def peek()
-        if is_empty()
+    def peek
+        if is_empty
             raise StandardError.new "Attempted to peek an empty queue"
         end
-        return @head.value
+        @head.value
     end
 
 
 
     def contains(value)
         current = @head
-
         while current
             if current.value == value
                 return true
             end
             current = current.link
         end
-
-        return false
+        false
     end
 
 
 
-    def is_empty()
-        return @size == 0
+    def is_empty
+        @size == 0
     end
 
 

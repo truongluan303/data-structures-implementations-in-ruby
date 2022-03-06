@@ -22,13 +22,13 @@ class BinarySearchTree
 
             while true
                 if value <= current.value
-                    if !current.left
+                    unless current.left
                         current.left = new_node
                         break
                     end
                     current = current.left
                 else
-                    if !current.right
+                    unless current.right
                         current.right = new_node
                         break
                     end
@@ -53,7 +53,7 @@ class BinarySearchTree
                 return true
             end
         end
-        return false
+        false
     end
 
 
@@ -64,17 +64,17 @@ class BinarySearchTree
 
 
 
-    def level_order_traversal()
+    def level_order_traversal
         result = []
         q = Queue.new
         q.enqueue(@root)
 
-        while !q.is_empty()
+        until q.is_empty
             size = q.size
             level = []
 
-            for i in (0..(size - 1))
-                current = q.dequeue()
+            (0..(size - 1)).each { |i|
+                current = q.dequeue
                 if current
                     level.push(current.value)
                     q.enqueue(current.left)
@@ -82,49 +82,49 @@ class BinarySearchTree
                 else
                     level.push(nil)
                 end
-            end
+            }
 
-            allnull = true
+            all_null = true
             level.each do |val|
                 if val
-                    allnull = false
+                    all_null = false
                 end
             end
-            if !allnull
+            unless all_null
                 result.push(level)
             end
         end
-        return result
+        result
     end
 
 
 
-    def preorder_traversal()
+    def preorder_traversal
         result = []
         preorder_helper(@root, result)
-        return result
+        result
     end
 
 
     
-    def inorder_traversal()
+    def inorder_traversal
         result = []
         inorder_helper(@root, result)
-        return result
+        result
     end
 
 
 
-    def postorder_traversal()
+    def postorder_traversal
         result = []
         postorder_helper(@root, result)
-        return result
+        result
     end
 
 
 
+    # private fields
     private
-
 
     def preorder_helper(root, result)
         if root
@@ -201,13 +201,13 @@ bst.add(9)
 
 
 print "\nPreorder:\t"
-print bst.preorder_traversal()
+print bst.preorder_traversal
 
 print "\nInorder:\t"
-print bst.inorder_traversal()
+print bst.inorder_traversal
 
 print "\nPostorder:\t"
-print bst.postorder_traversal()
+print bst.postorder_traversal
 
 print "\nLevel order:\t"
-print bst.level_order_traversal()
+print bst.level_order_traversal

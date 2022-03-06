@@ -1,58 +1,53 @@
 class Multiset
 
-    def initialize()
+    def initialize
         @size = 0
         @bag = Hash.new
     end
 
 
 
-    def add(value, occurences = 1)
-        if occurences < 1
-            raise ArgumentError.new "Occurences must be positive"
+    def add(value, occurrences = 1)
+        if occurrences < 1
+            raise ArgumentError.new "occurrences must be positive"
         end
-
-        if !@bag.key?(value)
+        unless @bag.key?(value)
             @bag[value] = 0
         end
-
-        @bag[value] += occurences
-        @size += occurences
+        @bag[value] += occurrences
+        @size += occurrences
     end
 
 
 
-    def remove(value, occurences = 1)
-        if occurences < 1
-            raise ArgumentError.new "Occurences must be positive"
+    def remove(value, occurrences = 1)
+        if occurrences < 1
+            raise ArgumentError.new "occurrences must be positive"
         end
-
-        if !@bag.key?(value)
+        unless @bag.key?(value)
             return false
         end
-
-        @bag[value] -= occurences
-        @size -= occurences
-
+        @bag[value] -= occurrences
+        @size -= occurrences
         if @bag[value] <= 0
             @bag.delete(value)
         end
-        return true
+        true
     end
 
 
 
     def contains(value)
-        return @bag.key?(value)
+        @bag.key?(value)
     end
 
 
 
-    def get_occurences(value)
-        if !contains(value)
+    def get_occurrences(value)
+        unless contains(value)
             return 0
         end
-        return @bag[value]
+        @bag[value]
     end
 
 

@@ -1,6 +1,6 @@
 class LinkedList
 
-    def initialize()
+    def initialize
         @head = nil
         @tail = nil
         @size = 0
@@ -10,7 +10,6 @@ class LinkedList
 
     def push_front(value)
         new_node = Node.new(value)
-
         if @size == 0
             @head = new_node
             @tail = new_node
@@ -18,7 +17,6 @@ class LinkedList
             new_node.link = @head
             @head = new_node
         end
-
         @size += 1
     end
 
@@ -26,7 +24,6 @@ class LinkedList
 
     def push_back(value)
         new_node = Node.new(value)
-
         if @size == 0
             @head = new_node
             @tail = new_node
@@ -34,13 +31,15 @@ class LinkedList
             @tail.link = new_node
             @tail = new_node
         end
-
         @size += 1
     end
 
 
 
-    def get(idx)
+    def get(idx = -1)
+        if idx == -1
+            idx = @size - 1
+        end
         current = @head
         (0..(idx - 1)).each do
             current = current.link
@@ -50,7 +49,7 @@ class LinkedList
 
 
 
-    def pop_front()
+    def pop_front
         if @size == 0
             raise StandardError.new "Attempted to pop an empty list"
         end
@@ -62,21 +61,18 @@ class LinkedList
 
 
 
-    def pop_back()
+    def pop_back
         if @size == 0
             raise StandardError.new "Attempted to pop an empty list"
         end
         result = @tail.value
-        
         current = @head
         (0..(@size - 2)).each do
             current = current.link
         end
-        
         current.link = nil
         @tail = current
         @size -= 1
-
         return result
     end
 
@@ -84,22 +80,19 @@ class LinkedList
 
     def pop(idx = -1)
         if idx == -1
-            return pop_back()
+            return pop_back
         elsif idx == 0
-            return pop_front()
+            return pop_front
         elsif idx < 0 or idx >= @size
             raise StandardError.new "Index out of range"
         end
-
         current = @head
         (0..(idx - 2)).each do
             current = current.link
         end
-
         result = current.link
         current.link = current.link.link
         @size -= 1
-
         return result
     end
 
@@ -107,13 +100,11 @@ class LinkedList
 
     def remove(value)
         if @head.value == value
-            pop_front()
+            pop_front
             return false
         end
-
         prev = @head
         current = @head.link
-        
         while current
             if current.value == value
                 prev.link = current.link
@@ -123,7 +114,6 @@ class LinkedList
             prev = current
             current = current.link
         end
-
         return false
     end
 
@@ -148,6 +138,7 @@ class LinkedList
 
 
     private
+
     class Node
 
         def initialize(value)

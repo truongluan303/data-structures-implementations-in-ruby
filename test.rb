@@ -8,7 +8,7 @@ require 'binary_search_tree'
 
 
 
-def linked_list_test()
+def linked_list_test
     passed = true
     llist = LinkedList.new
 
@@ -28,28 +28,24 @@ def linked_list_test()
     llist.remove(0)
     llist.remove(9)
 
-    llist.pop_front()
-    llist.pop_back()
+    llist.pop_front
+    llist.pop_back
 
     llist.pop(7)
-    llist.pop()
-    llist.pop_front()
-    llist.pop_front()
+    llist.pop
+    llist.pop_front
+    llist.pop_front
     llist.pop(llist.size - 1)
     llist.pop(5)
 
-
     res = [5, 4, 3, 2, 1, 2, 3, 4, 5]
-
     (0..(llist.size - 1)).each do |i|
         if llist.get(i) != res[i]
             passed = false
         end
     end
 
-
     # print result
-
     if passed
         puts 'P A S S'
     else
@@ -60,7 +56,7 @@ end
 
 
 
-def queue_test()
+def queue_test
     passed = true
     q = Queue.new
 
@@ -73,8 +69,8 @@ def queue_test()
     end
 
     num = 0
-    while !q.is_empty()
-        if q.peek() != num or q.peek() != q.dequeue()
+    until q.is_empty
+        if q.peek != num or q.peek != q.dequeue
             passed = false
             break
         end
@@ -90,7 +86,7 @@ end
 
 
 
-def stack_test()
+def stack_test
     passed = true
     stack = Stack.new
 
@@ -103,8 +99,8 @@ def stack_test()
     end
     
     size = 11
-    while !stack.is_empty()
-        if stack.peek() != (size - 1) or stack.peek() != stack.pop()
+    until stack.is_empty
+        if stack.peek != (size - 1) or stack.peek != stack.pop
             passed = false
             break
         end
@@ -120,7 +116,7 @@ end
 
 
 
-def multiset_test()
+def multiset_test
     passed = true
     multiset = Multiset.new
 
@@ -130,7 +126,7 @@ def multiset_test()
     multiset.remove(2)
     multiset.remove(2, 5)
 
-    if multiset.get_occurences(1) != 6 or multiset.get_occurences(2) != 4
+    if multiset.get_occurrences(1) != 6 or multiset.get_occurrences(2) != 4
         passed = false
     end
     if multiset.size != 10
@@ -149,7 +145,7 @@ end
 
 
 
-def bimap_test()
+def bimap_test
     passed = true
     bimap = Bimap.new
 
@@ -179,31 +175,31 @@ end
 
 
 
-def binary_search_tree_test()
+def binary_search_tree_test
 
 end
 
 
 
-
 if __FILE__ == $0
+    ### run the tests
 
     puts "\nTests Started...\n"
 
     puts "\nLINKED LIST TEST:\n"
-    linked_list_test()
+    linked_list_test
 
     puts "\nQUEUE TEST:\n"
-    queue_test()
+    queue_test
 
     puts "\nSTACK TEST:\n"
-    stack_test()
+    stack_test
 
     puts "\nMULTISET TEST:\n"
-    multiset_test()
+    multiset_test
 
     puts "\nBIMAP TEST:\n"
-    bimap_test()
+    bimap_test
 
     puts "\nBINARY SEARCH TREE TEST:\n"
 end
