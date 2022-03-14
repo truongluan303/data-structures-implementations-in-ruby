@@ -10,11 +10,10 @@ class Queue
         new_node = Node.new(value)
         if @size == 0
             @head = new_node
-            @tail = new_node
         else
             @tail.link = new_node
-            @tail = new_node
         end
+        @tail = new_node
         @size += 1
     end
 
