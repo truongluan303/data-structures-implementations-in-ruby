@@ -7,7 +7,6 @@ class LinkedList
     end
 
 
-
     def push_front(value)
         new_node = Node.new(value)
         if @size == 0
@@ -19,7 +18,6 @@ class LinkedList
         end
         @size += 1
     end
-
 
 
     def push_back(value)
@@ -35,7 +33,6 @@ class LinkedList
     end
 
 
-
     def get(idx = -1)
         if idx == -1
             idx = @size - 1
@@ -44,9 +41,8 @@ class LinkedList
         (0..(idx - 1)).each do
             current = current.link
         end
-        return current.value
+        current.value
     end
-
 
 
     def pop_front
@@ -56,9 +52,8 @@ class LinkedList
         result = @head.value
         @head = @head.link
         @size -= 1
-        return result
+        result
     end
-
 
 
     def pop_back
@@ -73,9 +68,8 @@ class LinkedList
         current.link = nil
         @tail = current
         @size -= 1
-        return result
+        result
     end
-
 
 
     def pop(idx = -1)
@@ -93,9 +87,8 @@ class LinkedList
         result = current.link
         current.link = current.link.link
         @size -= 1
-        return result
+        result
     end
-
 
 
     def remove(value)
@@ -114,9 +107,8 @@ class LinkedList
             prev = current
             current = current.link
         end
-        return false
+        false
     end
-
 
 
     def contains(value)
@@ -127,9 +119,15 @@ class LinkedList
             end
             current = current.link
         end
-        return false
+        false
     end
 
+
+    def clear
+        @head = nil
+        @tail = nil
+        @size = 0
+    end
 
 
     def size

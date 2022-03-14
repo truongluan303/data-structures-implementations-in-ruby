@@ -16,6 +16,9 @@ class Stack
     end
 
     def peek
+        if is_empty
+            raise StandardError.new "Attempted to peek an empty stack"
+        end
         @arr[-1]
     end
 

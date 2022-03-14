@@ -2,8 +2,7 @@ class Queue
 
     def initialize
         @size = 0
-        @head = nil
-        @tail = nil
+        @head = @tail = nil
     end
 
 
@@ -48,6 +47,35 @@ class Queue
             current = current.link
         end
         false
+    end
+
+
+    def remove(value)
+        if is_empty
+            raise StandardError.new "Attempted to remove from an empty queue"
+        end
+        if @head.value == value
+            dequeue
+            return true
+        end
+        prev = @head
+        current = @head.link
+        while current != nil
+            if current.value == value
+                prev.link = current.link
+                @size -= 1
+                return true
+            end
+            prev = current
+            current = current.link
+        end
+        false
+    end
+
+
+    def clear
+        @size = 0
+        @head = @tail = nil
     end
 
 

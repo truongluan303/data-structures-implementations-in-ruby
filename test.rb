@@ -5,193 +5,157 @@ require 'bimap'
 require 'multiset'
 require 'linkedlist'
 require 'binary_search_tree'
+require "test/unit"
 
 
-def linked_list_test
-    passed = true
-    llist = LinkedList.new
+class TestDataStructures < Test::Unit::TestCase
 
-    (0..9).each do |i|
-        llist.push_back(i)
-    end
-
-    (0..9).each do |i|
-        llist.push_front(i)
-    end
-
-    if !llist.contains(0) or llist.contains(10) or !llist.contains(5)
-        passed = false
-    end
-
-    llist.remove(9)
-    llist.remove(0)
-    llist.remove(9)
-
-    llist.pop_front
-    llist.pop_back
-
-    llist.pop(7)
-    llist.pop
-    llist.pop_front
-    llist.pop_front
-    llist.pop(llist.size - 1)
-    llist.pop(5)
-
-    res = [5, 4, 3, 2, 1, 2, 3, 4, 5]
-    (0..(llist.size - 1)).each do |i|
-        if llist.get(i) != res[i]
-            passed = false
+    def test_linked_list
+        llist = LinkedList.new
+        (0..9).each do |i|
+            llist.push_back(i)
         end
-    end
-
-    # print result
-    if passed
-        puts 'P A S S'
-    else
-        puts 'F A I L'
-    end
-end
-
-
-def queue_test
-    passed = true
-    q = Queue.new
-
-    (0..10).each do |i|
-        q.enqueue(i)
-    end
-
-    if !q.contains(5) or q.contains(15)
-        passed = false
-    end
-
-    num = 0
-    until q.is_empty
-        if q.peek != num or q.peek != q.dequeue
-            passed = false
-            break
+        (0..9).each do |i|
+            llist.push_front(i)
         end
-        num += 1
-    end
 
-    if passed
-        puts "P A S S"
-    else
-        puts "F A I L"
-    end
-end
+        assert_true(llist.contains(0))
+        assert_true(llist.contains(5))
+        assert_false(llist.contains(10))
 
+        llist.remove(9)
+        llist.remove(0)
+        llist.remove(9)
 
-def stack_test
-    passed = true
-    stack = Stack.new
+        llist.pop_front
+        llist.pop_back
 
-    (0..10).each do |i|
-        stack.push(i)
-    end
-    
-    if !stack.contains(5) or stack.contains(15)
-        passed = false
-    end
-    
-    size = 11
-    until stack.is_empty
-        if stack.peek != (size - 1) or stack.peek != stack.pop
-            passed = false
-            break
+        llist.pop(7)
+        llist.pop
+        llist.pop_front
+        llist.pop_front
+        llist.pop(llist.size - 1)
+        llist.pop(5)
+
+        res = [5, 4, 3, 2, 1, 2, 3, 4, 5]
+        (0..(llist.size - 1)).each do |i|
+            assert_equal(llist.get(i), res[i])
         end
-        size -= 1
+
+        llist.clear
+        assert_equal(llist.size, 0)
+        assert_raise(StandardError) { llist.pop_front }
+        assert_raise(StandardError) { llist.pop_back }
     end
 
-    if passed
-        puts "P A S S"
-    else
-        puts "F A I L"
-    end
-end
 
-
-def multiset_test
-    passed = true
-    multiset = Multiset.new
-
-    multiset.add(1, 5)
-    multiset.add(1)
-    multiset.add(2, 10)
-    multiset.remove(2)
-    multiset.remove(2, 5)
-
-    if multiset.get_occurrences(1) != 6 or multiset.get_occurrences(2) != 4
-        passed = false
-    end
-    if multiset.size != 10
-        passed = false
-    end
-    if multiset.contains(3) or !multiset.contains(1) or !multiset.contains(2)
-        passed = false
-    end
-
-    if passed
-        puts "P A S S"
-    else
-        puts "F A I L"
-    end
-end
-
-
-def bimap_test
-    passed = true
-    bimap = Bimap.new
-
-    ('a'..'z').each do |c|
-        bimap.add(c, c.bytes)
-    end
-
-    ('a'..'z').each do |c|
-        if !bimap.contains(c) or !bimap.contains(c.bytes)
-            passed = false
+    def test_queue
+        q = Queue.new
+        (0..10).each do |i|
+            q.enqueue(i)
+            assert_equal(q.size, i + 1)
+            assert_equal(q.peek, 0)
         end
-        if bimap.get(c) != c.bytes or bimap.get(c.bytes) != c
-            passed = false
+        assert_true(q.contains(5))
+        assert_false(q.contains(15))
+
+        num = 0
+        until q.is_empty
+            assert_equal(q.peek, num)
+            assert_equal(q.peek, q.dequeue)
+            num += 1
         end
+        assert_true(q.is_empty)
+        assert_equal(q.size, 0)
+        assert_raise(StandardError) { q.peek }
+        assert_raise(StandardError) { q.dequeue }
+
+        (0..5).each do |i|
+            q.enqueue(i)
+        end
+        assert_true(q.remove(0))
+        assert_false(q.contains(0))
+        assert_true(q.remove(3))
+        assert_false(q.contains(3))
+        assert_true(q.remove(5))
+        assert_false(q.contains(5))
+        assert_false(q.remove(11))
+        q.clear
+        assert_raise(StandardError) { q.remove(1) }
     end
 
-    if bimap.contains('1')
-        passed = false
+
+    def test_stack
+        stack = Stack.new
+        (0..10).each do |i|
+            stack.push(i)
+        end
+        assert_true(stack.contains(5))
+        assert_false(stack.contains(15))
+
+        size = 11
+        until stack.is_empty
+            assert_equal(stack.peek, size - 1)
+            assert_equal(stack.peek, stack.pop)
+            size -= 1
+        end
+        assert_true(stack.is_empty)
+        assert_equal(stack.size, 0)
+        assert_raise(StandardError) { stack.peek }
+        assert_raise(StandardError) { stack.pop }
     end
 
-    if passed
-        puts "P A S S"
-    else
-        puts "F A I L"
+
+    def test_multiset
+        multiset = Multiset.new
+        multiset.add(1, 5)
+        multiset.add(1)
+        multiset.add(2, 10)
+        multiset.remove(2)
+        multiset.remove(2, 5)
+
+        assert_equal(multiset.size, 10)
+        assert_equal(multiset.get_occurrences(1), 6)
+        assert_equal(multiset.get_occurrences(2), 4)
+        assert_equal(multiset.size, 10)
+        assert_false(multiset.contains(3))
+        assert_true(multiset.contains(2))
+        assert_true(multiset.contains(1))
+
+        assert_raise(ArgumentError) { multiset.add(0, -1) }
+        assert_raise(ArgumentError) { multiset.remove(0, -1) }
     end
-end
 
 
-def binary_search_tree_test
+    def test_bimap
+        bimap = Bimap.new
+        count = 0
+        ('a'..'z').each do |c|
+            bimap.add(c, c.bytes)
+            count += 1
+        end
+        assert_equal(bimap.size, count)
+        ('a'..'z').each do |c|
+            assert_true(bimap.contains(c))
+            assert_true(bimap.contains(c.bytes))
+            assert_equal(bimap.get(c), c.bytes)
+            assert_equal(bimap.get(c.bytes), c)
+        end
+        assert_false(bimap.contains('~'))
+        assert_false(bimap.contains(0))
+        assert_false(bimap.contains('1'))
 
-end
+        bimap.remove('a')
+        bimap.remove('b'.bytes)
+        assert_false(bimap.contains('a'))
+        assert_false(bimap.contains('a'.bytes))
+        assert_false(bimap.contains('b'))
+        assert_false(bimap.contains('b'.bytes))
+        assert_raise(ArgumentError) { bimap.remove('1') }
+    end
 
 
-if __FILE__ == $0
-    ### run the tests
-
-    puts "\nTests Started...\n"
-
-    puts "\nLINKED LIST TEST:\n"
-    linked_list_test
-
-    puts "\nQUEUE TEST:\n"
-    queue_test
-
-    puts "\nSTACK TEST:\n"
-    stack_test
-
-    puts "\nMULTISET TEST:\n"
-    multiset_test
-
-    puts "\nBIMAP TEST:\n"
-    bimap_test
-
-    puts "\nBINARY SEARCH TREE TEST:\n"
+    # def test_bst
+    #
+    # end
 end

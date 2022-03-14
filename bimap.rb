@@ -21,9 +21,13 @@ class Bimap
 
     def remove(value)
         if @firstmap.key?(value)
+            other = @firstmap[value]
             @firstmap.delete(value)
+            @secondmap.delete(other)
         elsif @secondmap.key?(value)
+            other = @secondmap[value]
             @secondmap.delete(value)
+            @firstmap.delete(other)
         else
             raise ArgumentError.new "Value not found"
         end

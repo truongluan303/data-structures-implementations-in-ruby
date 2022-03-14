@@ -176,25 +176,25 @@ end
 
 
 
-bst = BinarySearchTree.new
-
-bst.add(5)
-bst.add(3)
-bst.add(7)
-bst.add(2)
-bst.add(4)
-bst.add(0)
-bst.add(9)
-
-
-print "\nPreorder:\t"
-print bst.preorder_traversal
-
-print "\nInorder:\t"
-print bst.inorder_traversal
-
-print "\nPostorder:\t"
-print bst.postorder_traversal
-
-print "\nLevel order:\t"
-print bst.level_order_traversal
+# bst = BinarySearchTree.new
+#
+# bst.add(5)
+# bst.add(3)
+# bst.add(7)
+# bst.add(2)
+# bst.add(4)
+# bst.add(0)
+# bst.add(9)
+#
+#
+# print "\nPreorder:\t"
+# print bst.preorder_traversal
+#
+# print "\nInorder:\t"
+# print bst.inorder_traversal
+#
+# print "\nPostorder:\t"
+# print bst.postorder_traversal
+#
+# print "\nLevel order:\t"
+# print bst.level_order_traversal
