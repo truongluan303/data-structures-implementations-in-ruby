@@ -39,11 +39,11 @@ class TestDataStructures < Test::Unit::TestCase
 
         res = [5, 4, 3, 2, 1, 2, 3, 4, 5]
         (0..(llist.size - 1)).each do |i|
-            assert_equal(llist.get(i), res[i])
+            assert_equal(res[i], llist.get(i))
         end
 
         llist.clear
-        assert_equal(llist.size, 0)
+        assert_equal(0, llist.size)
         assert_raise(StandardError) { llist.pop_front }
         assert_raise(StandardError) { llist.pop_back }
     end
@@ -61,7 +61,7 @@ class TestDataStructures < Test::Unit::TestCase
 
         num = 0
         until q.is_empty
-            assert_equal(q.peek, num)
+            assert_equal(num, q.peek)
             assert_equal(q.peek, q.dequeue)
             num += 1
         end
@@ -95,12 +95,12 @@ class TestDataStructures < Test::Unit::TestCase
 
         size = 11
         until stack.is_empty
-            assert_equal(stack.peek, size - 1)
+            assert_equal(size - 1, stack.peek)
             assert_equal(stack.peek, stack.pop)
             size -= 1
         end
         assert_true(stack.is_empty)
-        assert_equal(stack.size, 0)
+        assert_equal(0, stack.size)
         assert_raise(StandardError) { stack.peek }
         assert_raise(StandardError) { stack.pop }
     end
@@ -114,10 +114,10 @@ class TestDataStructures < Test::Unit::TestCase
         multiset.remove(2)
         multiset.remove(2, 5)
 
-        assert_equal(multiset.size, 10)
-        assert_equal(multiset.get_occurrences(1), 6)
-        assert_equal(multiset.get_occurrences(2), 4)
-        assert_equal(multiset.size, 10)
+        assert_equal(10, multiset.size)
+        assert_equal(6, multiset.get_occurrences(1))
+        assert_equal(4, multiset.get_occurrences(2))
+        assert_equal(10, multiset.size)
         assert_false(multiset.contains(3))
         assert_true(multiset.contains(2))
         assert_true(multiset.contains(1))
@@ -155,7 +155,30 @@ class TestDataStructures < Test::Unit::TestCase
     end
 
 
-    # def test_bst
-    #
-    # end
+    def test_bst
+        bst = BinarySearchTree.new
+
+        vals = [5, 3, 7, 2, 4, 0, 9, 8]
+        vals.each { |x| assert_true(bst.add(x)) }
+        assert_false(bst.add(4))
+
+        assert_true(bst.contains(5))
+        assert_true(bst.contains(2))
+        assert_true(bst.contains(8))
+        assert_false(bst.contains(1))
+
+        assert_equal(8, bst.size)
+        assert_equal(2, bst.height)
+        assert_equal([5, 3, 2, 0, 4, 7, 9, 8], bst.preorder_traversal)
+        assert_equal([0, 2, 3, 4, 5, 7, 8, 9], bst.inorder_traversal)
+        assert_equal([0, 2, 4, 3, 8, 9, 7, 5], bst.postorder_traversal)
+        assert_equal(
+            [[5], [3, 7], [2, 4, nil, 9], [0, nil, nil, nil, 8, nil]],
+            bst.level_order_traversal
+        )
+
+        assert_true(bst.remove(3))
+        assert_false(bst.remove(3))
+        assert_false(bst.contains(3))
+    end
 end
